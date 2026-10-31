@@ -1,23 +1,49 @@
-# Support CRM
+# 🎫 Support CRM
 
-This is a Support CRM built with Next.js 14, Tailwind CSS, and Supabase for the Datastraw "AI + Tech Intern" assessment.
+A full-stack customer support ticketing system. Support agents can create tickets, set a priority, search and filter the queue, update ticket status and keep internal notes on every ticket.
 
-## Tech Stack
-- **Frontend & API**: Next.js 14 (App Router)
-- **Database**: PostgreSQL via Supabase
-- **Styling**: Tailwind CSS
-- **Deployment**: Vercel
+🔗 **Live Demo:** [https://support-crm-1ths-69fdkdes9-srishty-kumaris-projects.vercel.app/](https://support-crm-1ths-69fdkdes9-srishty-kumaris-projects.vercel.app/)
 
-## Setup Instructions
+---
 
-1. Clone this repository.
-2. Run `npm install` to install dependencies.
-3. Copy `.env.example` to `.env.local` and add your Supabase credentials:
-   ```
-   SUPABASE_URL=your_supabase_url
-   SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
-   ```
-4. Run the following SQL script in your Supabase SQL editor to create the database schema:
+## 📸 Screenshots
+
+<!-- Drag your app screenshots here while editing this file -->
+
+---
+
+## ✨ Features
+
+- 🎟️ Create tickets with customer name, email, subject, description and priority
+- ⏱️ Automatic SLA deadline based on priority: **High = 4 hours, Medium = 24 hours, Low = 72 hours**
+- 🚨 Tickets that pass their deadline without being closed are flagged as **overdue**
+- 🔄 Ticket status workflow: **Open → In Progress → Closed**
+- 🔍 Search by customer name, email, ticket ID or subject
+- 🎛️ Filter the ticket list by status and priority
+- 📝 Add notes to a ticket and view its full history on the ticket page
+
+## 🛠️ Tech Stack
+
+| Area | Technology |
+|---|---|
+| Framework | Next.js 14 (App Router), React 18 |
+| Styling | Tailwind CSS |
+| Database | PostgreSQL via Supabase |
+| Utilities | date-fns, Lucide React |
+| Deployment | Vercel |
+
+## 🔌 API Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/api/tickets` | Create a ticket and calculate its SLA deadline (`due_by`) from priority |
+| `GET` | `/api/tickets` | List tickets. Supports `status`, `priority` and `search` query parameters and returns an `overdue` flag |
+| `GET` | `/api/tickets/[ticketId]` | Get one ticket along with its notes |
+| `PUT` | `/api/tickets/[ticketId]` | Update a ticket's status or add a note |
+
+## 🗄️ Database Schema
+
+Run this SQL in the Supabase SQL editor:
 
 ```sql
 create sequence if not exists ticket_seq start 1;
@@ -44,11 +70,30 @@ create table notes (
 );
 ```
 
-5. Run `npm run dev` to start the development server.
+## 🚀 Run Locally
 
-## API Endpoints
+```bash
+git clone https://github.com/srishty02/support-crm.git
+cd support-crm
+npm install
+```
 
-- `POST /api/tickets`: Create a new ticket. Computes SLA (`due_by`) based on priority.
-- `GET /api/tickets`: Retrieve all tickets. Supports `status`, `priority`, and `search` query parameters. Computes `overdue` status.
-- `GET /api/tickets/[ticketId]`: Retrieve a specific ticket and its notes.
-- `PUT /api/tickets/[ticketId]`: Update a ticket's status or add a new note.
+Copy `.env.example` to `.env.local` and add your Supabase credentials:
+
+```env
+SUPABASE_URL=your_supabase_url
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## 👩‍💻 Author
+
+**Srishty Kumari**
+[LinkedIn](https://www.linkedin.com/in/srishty-kumari-14b56b272/) · [GitHub](https://github.com/srishty02) · srishty0208@gmail.com
